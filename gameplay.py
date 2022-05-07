@@ -1,4 +1,6 @@
 import json
+import Utils.classes.Node as Node
+import copy
 def Choices(state):
     print(state)
     #bestmove=state
@@ -10,7 +12,7 @@ def state(message):
     vie=message["lives"]
     print("Il te reste",vie,"vies")
     state=message["state"]
-    
+    Node.Score_eval(state)
     Choices(state)
 
 def Answer(bestmove,client):
@@ -23,6 +25,7 @@ def Answer(bestmove,client):
                 "move": bestmove,
                 "message": "Mouahah"})
             client.send(move_answ.encode())
+            newState = copy.deepcopy(state)
             break
         
         if answer=="give up":
