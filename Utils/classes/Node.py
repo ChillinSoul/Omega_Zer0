@@ -1,4 +1,5 @@
 
+from pydoc import Helper
 from sys import maxsize
 from functions.helpers import *
 
@@ -40,12 +41,27 @@ class node(object):
         """
         given a specific gamestate, this fuction uses the rules of the game to find all the possible gamestates
         """
-        return True
-        pgs=[]
+        if self.player == "b" and not self.c_depth%2:
+            color = "b"
+        elif self.player == "b" and self.cdeph%2:
+            color ="w"
+        elif self.player == "w" and not self.c_depth%2:
+            color ="w"
+        else:
+            color = "b"
+
+        pgs = []
+        for i in range (64):
+            if Legal(self.board,i,color):
+                pgs.append((Board_update(self.board,i,color),i))
         return pgs
     
-
-
+    def Score_eval(self):
+        """
+        given a specific gamestate, this function will return the board score.
+        """
+        #(nb_w-nb_b)+(nb_w_c-nb_b_c)*0,5+(nb_w_e-nb_b_e)*0,25+(nb_w_d-nb_b_d)*(-0,5) si on et blanc, l'inverse si on est noir
+        return 1
 
     def MakeChild(self):
         """
