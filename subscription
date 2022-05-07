@@ -1,6 +1,7 @@
 import socket
 import threading as thread
 import json
+import gameplay
 
 
 sub1 = json.dumps({
@@ -81,6 +82,7 @@ def state(message):
     print("Il te reste",vie,"vies")
     state=message["state"]
     print(state)
+    gameplay.Choices(state)
     
 
 
