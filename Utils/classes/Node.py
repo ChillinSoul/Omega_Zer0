@@ -56,6 +56,7 @@ class node(object):
         dl = d+l
         dr = d+r
         tr = t+r
+        print(tl, dl,dr,tr)
         for dr in [t,r,d,l,tl,dl,dr,tr]:
             if self.inbound(move,dr):
                 if c_max == c_min:
