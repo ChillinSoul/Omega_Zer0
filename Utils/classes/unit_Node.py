@@ -1,11 +1,8 @@
-import Node
+import Utils.functions.helpers as helpers
 import pytest
 
-n=range(63)
 
-for r in n:
-    a=list(n)
 def inbound_test():
-    for ele in a:
-       assert  Node.inbound(ele,-1)
+    
+       assert  helpers.inbound(7,1)==False
      

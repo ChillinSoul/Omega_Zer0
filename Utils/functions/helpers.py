@@ -47,3 +47,7 @@ def Score_eval(self):
     """
     #(nb_w-nb_b)+(nb_w_c-nb_b_c)*0,5+(nb_w_e-nb_b_e)*0,25+(nb_w_d-nb_b_d)*(-0,5) si on et blanc, l'inverse si on est noir
     return 1
+
+
+if __name__ == '__main__':
+	print(inbound(0,1))
