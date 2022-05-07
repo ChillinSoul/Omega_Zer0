@@ -34,6 +34,7 @@ class node(object):
         """
         given a specific gamestate and a move, this function will return T/F depending if the move is legal.
         """
+
     def PGS_eval(self):
         """
         given a specific gamestate, this fuction uses the rules of the game to find all the possible gamestates
@@ -46,6 +47,7 @@ class node(object):
         """
         given a specific gamestate, this function will return the board score.
         """
+        #(nb_w-nb_b)+(nb_w_c-nb_b_c)*0,5+(nb_w_e-nb_b_e)*0,25+(nb_w_d-nb_b_d)*(-0,5) si on et blanc, l'inverse si on est noir
         return 1
 
 
@@ -55,6 +57,6 @@ class node(object):
         """
         if self.c_depth != self.m_depth:
             pgs = self.PGS_eval()
-            for gs in pgs:
+            for gs,mv in pgs:
                 # creates a node at depth c_depth+1 whose board is one of the possible gamestates
-                self.chlidren.append(node(self.c_depth+1,self.m_depth,gs,self.val,self.move))
+                self.chlidren.append(node(self.c_depth+1,self.m_depth,gs,self.val,mv))
