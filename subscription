@@ -1,0 +1,37 @@
+import socket
+import threading
+import json
+
+
+sub1 = json.dumps({
+    "request": "subscribe",
+    "port": 8888,
+    "name": "Patate",
+    "matricules": ["64187"]
+    })
+sub2 =json.dumps({
+        "request": "subscribe",
+        "port": 6666,
+        "name": "Cornichon",
+        "matricules": ["56411"]
+ })
+ping = json.dumps({"request": "ping"})
+pong = json.dumps({"response": "pong"})
+
+def subs():
+    b=0
+    addr = ("127.0.0.1", 3000)
+    with socket.socket() as s:
+        s.connect(addr)
+        s.send(sub1.encode())
+
+        s.close()
+    with socket.socket() as s:
+        s.connect(addr)
+        s.send(sub2.encode())
+        s.close()
+
+if __name__ == "__main__":
+        print (__name__)
+        subs()
+        
