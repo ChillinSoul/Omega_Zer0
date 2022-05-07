@@ -1,5 +1,5 @@
 
-
+from copy import deepcopy
 
 t = -8
 r = +1
@@ -17,12 +17,31 @@ directions = [t,r,d,l,tl,dl,dr,tr]
 def inbound(move:int, dir:int):
     if 0<=move+dir and move+dir <64:
         if   move%8 == 0 and (dir !=-1 and dir !=-9 and dir !=  7):
-            return False
+            return True
         elif move%8 == 7 and (dir != 1 and dir != 9 and dir != -7):
-            return False
-        else:
             return True
     return False
+
+def Board_update(board:list,move:int,player:str):
+    """
+    updates the board for a given move
+    """
+
+    n_board = deepcopy(board)
+    if player == "w": opp = "b"
+    else:             opp ="w"
+    for dir in directions:
+            i =1
+            temp=[]
+            while inbound(move,dir*(i)):
+                if board[move+dir*(i)] == opp:
+                    temp.append(move+dir*(i))
+                    i+=1
+                elif board[move+dir*(i)] == player and i>1:
+                    for disc in temp:
+                        n_board[disc] = player
+    return n_board
+
 
 def Legal(board:list,move:int,player:str):
     """
