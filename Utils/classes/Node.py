@@ -32,9 +32,9 @@ class node(object):
     
     def inbound(move, dr):
         if 0<=move+dr and move+dr <64:
-            if   move%8 == 0 and dr <0:
+            if   move%8 == 0 and (dr !=-1 and dr !=-9):
                 return False
-            elif move%8 == 7 and dr >0:
+            elif move%8 == 7 and (dr !=1 and dr !=9):
                 return False
             else:
                 return True
@@ -56,9 +56,14 @@ class node(object):
         dl = d+l
         dr = d+r
         tr = t+r
+<<<<<<< HEAD
         print(tl, dl,dr,tr)
         for dr in [t,r,d,l,tl,dl,dr,tr]:
             if self.inbound(move,dr):
+=======
+        for dir in [t,r,d,l,tl,dl,dr,tr]:
+            if self.inbound(move,dir):
+>>>>>>> 39b42bc3f5fe9abc0ac1d4ab264b8b9a44a3760b
                 if c_max == c_min:
                     pass
 
