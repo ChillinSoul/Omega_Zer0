@@ -20,6 +20,8 @@ def inbound(move:int, dir:int):
             return True
         elif move%8 == 7 and (dir != 1 and dir != 9 and dir != -7):
             return True
+        else: 
+            return True
     return False
 
 def Board_update(board:list,move:int,player:str):
