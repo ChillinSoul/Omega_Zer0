@@ -15,6 +15,7 @@ directions = [t,r,d,l,tl,dl,dr,tr]
 
 
 def inbound(move:int, dir:int):
+    
     if 0<=move+dir and move+dir <64:
         if   move%8 == 0 and (dir !=-1 and dir !=-9 and dir !=  7):
             return True
@@ -24,14 +25,12 @@ def inbound(move:int, dir:int):
             return True
     return False
 
-def Board_update(board:list,move:int,player:str):
+def Board_update(board:list,move:int,player:str,opp:str):
     """
     updates the board for a given move
     """
 
     n_board = deepcopy(board)
-    if player == "w": opp = "b"
-    else:             opp ="w"
     for dir in directions:
             i =1
             temp=[]
@@ -45,13 +44,11 @@ def Board_update(board:list,move:int,player:str):
     return n_board
 
 
-def Legal(board:list,move:int,player:str):
+def Legal(board:list,move:int,player:str,opp:str):
     """
     given a specific gamestate and a move, this function will return T/F depending if the move is legal.
     """
-        
-    if player == "w": opp = "b"
-    else:             opp ="w"
+    
     if move == 0 or "":
         for dir in directions:
             i =1
