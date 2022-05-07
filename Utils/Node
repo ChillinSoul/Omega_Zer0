@@ -1,3 +1,5 @@
+from sys import maxsize
+
 class Node(object):
     def __init__(self,c_depth:int,m_depth:int,board:list,val = 0,alpha = maxsize,beta = -maxsize):
         self.c_depth = c_depth
