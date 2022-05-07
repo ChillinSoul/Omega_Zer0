@@ -6,18 +6,14 @@ class node(object):
     the node represents a gamestate,
     it contains a current copy of the game, the current recursion depth (c_depth) and the maximum recurtion depth (m_depth).
     the children attribute contains the possible futur gamestates at the (c_depth +1) depth.
-    alpha and beta are arguments for the alpha-beta prunig alorithm that layers on top of minimax.
     
     """
-    def __init__(self,c_depth:int,m_depth:int,board:list,val = 0,alpha = maxsize,beta = -maxsize):
+    def __init__(self,c_depth:int,m_depth:int,board:list,val = 0):
 
         ######################### Unpack
         self.c_depth = c_depth
         self.m_depth = m_depth
-        self.board = board
-
-        self.apha = alpha
-        self.beta = beta 
+        self.board = board 
 
         self.val  = val
         ######################### Unpack
