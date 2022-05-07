@@ -1,16 +1,16 @@
 import json
 def Choices(state):
+    print(state)
     #bestmove=state
     #Meilleur move proposé par IA 
     #...
-    Answer(bestmove)
+    #Answer(bestmove)
 
 def state(message):
     vie=message["lives"]
     print("Il te reste",vie,"vies")
     state=message["state"]
-    print(state)
-
+    
     Choices(state)
 
 def Answer(bestmove,client):

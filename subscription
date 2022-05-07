@@ -53,7 +53,7 @@ def mess1():
                         print("Youpi! Il est là!")
                         c=1
                 if "state" in message:
-                    state(message)
+                    gameplay.state(message)
                 client.close()
 
 def mess2():
@@ -74,16 +74,10 @@ def mess2():
                         print("Youpi! Il est là!")
                         c=1
                 if "state" in message:
-                    state(message)
+                    gameplay.state(message)
                 
                 client.close()
-def state(message):
-    vie=message["lives"]
-    print("Il te reste",vie,"vies")
-    state=message["state"]
-    print(state)
-    gameplay.Choices(state)
-    
+
 
 
 if __name__ == "__main__":
