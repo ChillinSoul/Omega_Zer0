@@ -8,7 +8,7 @@ class node(object):
     the children attribute contains the possible futur gamestates at the (c_depth +1) depth.
     
     """
-    def __init__(self,c_depth:int,m_depth:int,board:list,val = 0):
+    def __init__(self,c_depth:int,m_depth:int,board:list,val = 0,move = None):
 
         ######################### Unpack
         self.c_depth = c_depth
@@ -16,6 +16,7 @@ class node(object):
         self.board = board 
 
         self.val  = val
+        self.move = move
         ######################### Unpack
 
 
@@ -56,4 +57,4 @@ class node(object):
             pgs = self.PGS_eval()
             for gs in pgs:
                 # creates a node at depth c_depth+1 whose board is one of the possible gamestates
-                self.chlidren.append(node(self.c_depth+1,self.m_depth,gs,self.val,self.alpha,self.beta))
+                self.chlidren.append(node(self.c_depth+1,self.m_depth,gs,self.val,self.move))
