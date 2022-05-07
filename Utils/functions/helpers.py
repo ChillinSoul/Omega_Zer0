@@ -69,4 +69,4 @@ def Score_eval(self):
 
 
 if __name__ == '__main__':
-	print(inbound(0,1))
+	print(inbound(5,1))
