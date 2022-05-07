@@ -40,5 +40,12 @@ __strat__
     though your opponent has moved into one of the ‘dangerous’ squares right next to it.
 
 
+Omega-Zer0 strat: 
+__MinMax__
+    Given a board state, a node is created. This node represent the current gamestate, recurcively a node tree is then created. The minimax algorithm will then go down the tree all the way to the first leave. it will then evaluate all the leaves connected to the same node and set this node's value to the best leave's value (maximum for the maximizing player and minimum for the minimizing player). it will to the same for all the subsequent nodes going up and down the tree. 
+    once all the nodes have been evaluated, the algorithm will return the best move to play at depth 0 (the actual turn).
+__AB_Pruning__
+    The algorithm will keep a copy of the current best move for either players(alpha and beta). If the algorithm detects that a node's result can't affect the outcome, this node won't be evaluated saving computational recources. 
+
 
 
