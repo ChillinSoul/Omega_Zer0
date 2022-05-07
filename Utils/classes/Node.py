@@ -30,11 +30,11 @@ class node(object):
         self.MakeChild()# this line is what creates the entire tree.
         ######################### function(s)
     
-    def inbound(move, dr):
-        if 0<=move+dr and move+dr <64:
-            if   move%8 == 0 and (dr !=-1 and dr !=-9):
+    def inbound(move:int, dir:int):
+        if 0<=move+dir and move+dir <64:
+            if   move%8 == 0 and (dir !=-1 and dir !=-9 and dir !=  7):
                 return False
-            elif move%8 == 7 and (dr !=1 and dr !=9):
+            elif move%8 == 7 and (dir != 1 and dir != 9 and dir != -7):
                 return False
             else:
                 return True
@@ -44,7 +44,7 @@ class node(object):
             
 
 
-    def Legal(self,move,c_max,c_min):
+    def Legal(self,move:int,c_max:str,c_min:str):
         """
         given a specific gamestate and a move, this function will return T/F depending if the move is legal.
         """
@@ -56,14 +56,9 @@ class node(object):
         dl = d+l
         dr = d+r
         tr = t+r
-<<<<<<< HEAD
-        print(tl, dl,dr,tr)
-        for dr in [t,r,d,l,tl,dl,dr,tr]:
-            if self.inbound(move,dr):
-=======
+
         for dir in [t,r,d,l,tl,dl,dr,tr]:
             if self.inbound(move,dir):
->>>>>>> 39b42bc3f5fe9abc0ac1d4ab264b8b9a44a3760b
                 if c_max == c_min:
                     pass
 
