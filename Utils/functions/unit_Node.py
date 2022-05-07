@@ -4,5 +4,5 @@ import pytest
 
 def inbound_test():
     
-       assert  helpers.inbound(7,1)==False
+       assert  helpers.inbound(4,-2)==False
      
