@@ -2,6 +2,11 @@ import nntplib
 import unittest
 from sys import maxsize
 
+from sys import maxsize
+from functions.helpers import *
+
+
+brd = []
 class node(object):
     """
     Node class:
@@ -10,12 +15,13 @@ class node(object):
     the children attribute contains the possible futur gamestates at the (c_depth +1) depth.
     
     """
-    def __init__(self,c_depth:int,m_depth:int,board:list,val = 0,move = None):
+    def __init__(self,c_depth:int,m_depth:int,board:list,player:str,val = 0,move = None):
 
         ######################### Unpack
         self.c_depth = c_depth
         self.m_depth = m_depth
         self.board = board 
+        self.player = player
 
         self.val  = val
         self.move = move
@@ -31,39 +37,6 @@ class node(object):
         self.MakeChild()# this line is what creates the entire tree.
         ######################### function(s)
     
-    def inbound(move:int, dir:int):
-        if 0<=move+dir and move+dir <64:
-            if   move%8 == 0 and (dir !=-1 and dir !=-9 and dir !=  7):
-                return False
-            elif move%8 == 7 and (dir != 1 and dir != 9 and dir != -7):
-                return False
-            else:
-                return True
-        return False
-
-            
-            
-
-
-    def Legal(self,move:int,c_max:str,c_min:str):
-        """
-        given a specific gamestate and a move, this function will return T/F depending if the move is legal.
-        """
-        t = -8
-        r = +1
-        d = +8
-        l = -1
-        tl = t+l
-        dl = d+l
-        dr = d+r
-        tr = t+r
-
-        for dir in [t,r,d,l,tl,dl,dr,tr]:
-            if self.inbound(move,dir):
-                if c_max == c_min:
-                    pass
-
-
 
 
     def PGS_eval(self):
@@ -74,12 +47,7 @@ class node(object):
         pgs=[]
         return pgs
     
-    def Score_eval(self):
-        """
-        given a specific gamestate, this function will return the board score.
-        """
-        #(nb_w-nb_b)+(nb_w_c-nb_b_c)*0,5+(nb_w_e-nb_b_e)*0,25+(nb_w_d-nb_b_d)*(-0,5) si on et blanc, l'inverse si on est noir
-        return 1
+
 
 
     def MakeChild(self):
@@ -90,4 +58,4 @@ class node(object):
             pgs = self.PGS_eval()
             for gs,mv in pgs:
                 # creates a node at depth c_depth+1 whose board is one of the possible gamestates
-                self.chlidren.append(node(self.c_depth+1,self.m_depth,gs,self.val,mv))
+                self.chlidren.append(node(self.c_depth+1,self.m_depth,gs,self.player,self.val,mv))
