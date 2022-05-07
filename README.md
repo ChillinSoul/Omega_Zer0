@@ -41,6 +41,25 @@ __strat__
 
 
 Omega-Zer0 strat: 
+
+__Board_structure__
+    [
+    c ,d ,e ,e ,e ,e ,d ,c ,
+    d ,d ,0 ,0 ,0 ,0 ,d ,d ,
+    e ,0 ,0 ,0 ,0 ,0 ,0 ,e ,
+    e ,0 ,0 ,sb,sw,0 ,0 ,e ,
+    e ,0 ,0 ,sw,sb,0 ,0 ,e ,
+    e ,0 ,0 ,0 ,0 ,0 ,0 ,e ,
+    d ,d ,0 ,0 ,0 ,0 ,d ,d ,
+    c ,d ,e ,e ,e ,e ,d ,c
+    ]
+    c(corners)  :[0,7,56,63] great position, unflipable 
+    d(danger)   :[1,6,8,9,14,15,48,49,54,55,57,62] bad position if the corner is not atributed (gateawy to the corner for the opponent)
+    e(edge)     :[2,3,4,5,16,23,24,31,32,39,40,47,58,59,60,61] good position
+    sw(strt_wht):[28,35] defautl start position 
+    sb(strt_blk):[27,36] default start position 
+
+
 __MinMax__
     Given a board state, a node is created. This node represent the current gamestate, recurcively a node tree is then created. The minimax algorithm will then go down the tree all the way to the first leave. it will then evaluate all the leaves connected to the same node and set this node's value to the best leave's value (maximum for the maximizing player and minimum for the minimizing player). it will to the same for all the subsequent nodes going up and down the tree. 
     once all the nodes have been evaluated, the algorithm will return the best move to play at depth 0 (the actual turn).
