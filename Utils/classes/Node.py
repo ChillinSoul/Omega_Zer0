@@ -1,3 +1,4 @@
+import nntplib
 from sys import maxsize
 
 class node(object):
@@ -29,11 +30,39 @@ class node(object):
         self.MakeChild()# this line is what creates the entire tree.
         ######################### function(s)
     
+    def inbound(move, dr):
+        if 0<=move+dr and move+dr <64:
+            if   move%8 == 0 and dr <0:
+                return False
+            elif move%8 == 7 and dr >0:
+                return False
+            else:
+                return True
+        return False
 
-    def Legal(self):
+            
+            
+
+
+    def Legal(self,move,c_max,c_min):
         """
         given a specific gamestate and a move, this function will return T/F depending if the move is legal.
         """
+        t = -8
+        r = +1
+        d = +8
+        l = -1
+        tl = t+l
+        dl = d+l
+        dr = d+r
+        tr = t+r
+        for dr in [t,r,d,l,tl,dl,dr,tr]:
+            if self.inbound(move,dr):
+                if c_max == c_min:
+                    pass
+
+
+
 
     def PGS_eval(self):
         """
