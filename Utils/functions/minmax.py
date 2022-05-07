@@ -1,3 +1,7 @@
+from sys import maxsize
+from classes import Node
+
+
 def MinMax(node:Node,c_depth:int,m_depth:int):
     if (c_depth == m_depth) or (abs(node.val)==maxsize): return node.val
     
