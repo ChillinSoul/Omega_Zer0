@@ -15,8 +15,10 @@ sub2 =json.dumps({
         "name": "Cornichon",
         "matricules": ["56411"]
  })
-ping = json.dumps({"request": "ping"})
+
 pong = json.dumps({"response": "pong"})
+
+
 
 def subs():
     b=0
@@ -40,13 +42,17 @@ def mess1():
         while True:
             client, address = so.accept()
             with client:
-                message = client.recv(2048).decode()
-                if message == ping:
+                mess = client.recv(2048).decode()
+                message=json.loads(mess)
+                
+
+                if message["request"] == "ping":
                     client.send(pong.encode())
                     while c<1:
                         print("Youpi! Il est là!")
                         c=1
-
+                if "state" in message:
+                    state(message)
                 client.close()
 
 def mess2():
@@ -58,13 +64,25 @@ def mess2():
         while True:
             client, address = so.accept()
             with client:
-                message = client.recv(2048).decode()
-                if message == ping:
+                mess = client.recv(2048).decode()
+                message=json.loads(mess)
+                print(message)
+                if message["request"]=="ping":
                     client.send(pong.encode())
                     while c<1:
                         print("Youpi! Il est là!")
                         c=1
+                if "state" in message:
+                    state(message)
+                
                 client.close()
+def state(message):
+    vie=message["lives"]
+    print("Il te reste",vie,"vies")
+    state=message["state"]
+    print(state)
+    
+
 
 if __name__ == "__main__":
         print (__name__)
