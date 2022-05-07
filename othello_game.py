@@ -1,6 +1,5 @@
 from unittest import removeResult
-from .. import game
-
+import game
 import copy
 directions = [
     ( 0,  1),
