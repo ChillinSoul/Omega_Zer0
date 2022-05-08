@@ -1,5 +1,3 @@
-import nntplib
-import unittest
 from sys import maxsize
 
 
