@@ -1,19 +1,25 @@
 import json
-import Utils.classes.Node as Node
+import helpers
+
 import copy
-def Choices(state):
-    print(state)
+
+
+def State(state):
+    print("ETAT2", state)
+    helpers.Score_eval( state)
+    return state
     #bestmove=state
     #Meilleur move proposé par IA 
     #...
     #Answer(bestmove)
 
-def state(message):
+def Info(message):
     vie=message["lives"]
+    state=message['state']
     print("Il te reste",vie,"vies")
-    state=message["state"]
-    Node.Score_eval(state)
-    Choices(state)
+    
+    State(state)
+    
 
 def Answer(bestmove,client):
     input('Chose:move or give up')
@@ -39,5 +45,8 @@ def Answer(bestmove,client):
 
         
             
+
+
+
 
 

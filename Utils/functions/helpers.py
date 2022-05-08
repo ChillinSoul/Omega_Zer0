@@ -1,5 +1,6 @@
 
 from copy import deepcopy
+from gameplay import state as state
 
 t = -8
 r = +1
@@ -61,8 +62,11 @@ def Legal(board:list,move:int,player:str,opp:str):
 
 def Score_eval(self):
     """
+    
     given a specific gamestate, this function will return the board score.
     """
+    boardinfo=state[3]
+    print(boardinfo)
     #(nb_w-nb_b)+(nb_w_c-nb_b_c)*0,5+(nb_w_e-nb_b_e)*0,25+(nb_w_d-nb_b_d)*(-0,5) si on et blanc, l'inverse si on est noir
     return 1
 
