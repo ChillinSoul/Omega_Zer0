@@ -2,7 +2,7 @@ import nntplib
 import unittest
 from sys import maxsize
 
-from pydoc import Helper
+
 from sys import maxsize
 from functions.helpers import *
 
