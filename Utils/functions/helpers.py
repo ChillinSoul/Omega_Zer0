@@ -94,7 +94,7 @@ def Score_eval(state):
         (len(w)-len(b))+(len(w_corner)-len(b_corner))*0.5+(w_edge-b_edge)*0.25
 
     if b==nosPions: #si on est noir
-        (len(b)-len(w))+(len(b_corner)-len(w_corner))*0.5+(b_edge-w_edge)*0.25
+        (len(b)-len(w))+(len(b_corner)-len(w_corner))*0.5+(len(b_edge)-len(w_edge))*0.25
 
 
 
