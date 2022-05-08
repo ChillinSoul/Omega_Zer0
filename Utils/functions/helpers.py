@@ -72,7 +72,7 @@ def Score_eval(state):
     corner=['63','56','7','0','07','00']
 
     edge_=['63','56','7','0','07','00','1','2','3','4','5','6']
-edge2=list(range(15,56,8))+list(range(57,63))+list(range(8,49,8))+list(range(1,7))
+    edge2=list(range(15,56,8))+list(range(57,63))+list(range(8,49,8))+list(range(1,7))
     add2=["{:02d}".format(x) for x in edge2]
     edge=add2+edge_
 
@@ -91,7 +91,7 @@ edge2=list(range(15,56,8))+list(range(57,63))+list(range(8,49,8))+list(range(1,7
     b_edge=set(b)&set(edge)
     w_edge=set(b)&set(edge)
     if w==nosPions: #si on est blanc, il faut importer la liste nosPions
-        (len(w)-len(b))+(len(w_corner)-len(b_corner))*0.5+(w_edge-b_edge)*0.25
+        (len(w)-len(b))+(len(w_corner)-len(b_corner))*0.5+(len(w_edge)-len(b_edge))*0.25
 
     if b==nosPions: #si on est noir
         (len(b)-len(w))+(len(b_corner)-len(w_corner))*0.5+(len(b_edge)-len(w_edge))*0.25
