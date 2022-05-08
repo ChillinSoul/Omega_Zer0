@@ -71,8 +71,8 @@ def Score_eval(state):
     
     corner=['63','56','7','0','07','00']
 
-    edge_=['63','56','7','0','07','00','15','23','31','39','45','01','02','03','04','05','06','07','08','09']
-    edge2=list(range(15,55,8))+list(range(57,62))+list(range(8,48,8))+list(range(1,6))
+    edge_=['63','56','7','0','07','00','1','2','3','4','5','6']
+edge2=list(range(15,56,8))+list(range(57,63))+list(range(8,49,8))+list(range(1,7))
     add2=["{:02d}".format(x) for x in edge2]
     edge=add2+edge_
 
