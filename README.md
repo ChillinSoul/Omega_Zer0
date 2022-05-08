@@ -7,6 +7,7 @@
 
 Othello rules: 
     source: https://service.mattel.com/instruction_sheets/T8130-Eng.pdf
+
 __init__
 
     1-Each player takes 32 disks and chooses one color to use throughout the game.
