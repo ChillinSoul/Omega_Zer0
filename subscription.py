@@ -46,14 +46,13 @@ def mess1():
                 mess = client.recv(2048).decode()
                 message=json.loads(mess)
                 
-
                 if message["request"] == "ping":
                     client.send(pong.encode())
                     while c<1:
                         print("Youpi! Il est là!")
                         c=1
                 if "state" in message:
-                    gameplay.state(message)
+                    gameplay.Info(message,client)
                 client.close()
 
 def mess2():
@@ -67,14 +66,14 @@ def mess2():
             with client:
                 mess = client.recv(2048).decode()
                 message=json.loads(mess)
-                print(message)
+                
                 if message["request"]=="ping":
                     client.send(pong.encode())
                     while c<1:
                         print("Youpi! Il est là!")
                         c=1
                 if "state" in message:
-                    gameplay.state(message)
+                    gameplay.Info(message,client)
                 
                 client.close()
 

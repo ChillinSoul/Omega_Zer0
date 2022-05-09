@@ -1,46 +1,49 @@
 import json
-import helpers
+import Utils.functions.helpers as helpers
+import Utils.functions.minmax as minmax
 
 import copy
 
 
 def State(state):
-    print("ETAT2", state)
-    helpers.Score_eval( state)
+    
+   
     return state
     #bestmove=state
     #Meilleur move proposé par IA 
     #...
     #Answer(bestmove)
 
-def Info(message):
+def Info(message,client):
     vie=message["lives"]
     state=message['state']
     print("Il te reste",vie,"vies")
+    if "move" in message:
+        print(message,"ok")
     
     State(state)
+    bestmove=minmax.MinMax
+    print("yes",bestmove)
     
-
-def Answer(bestmove,client):
     input('Chose:move or give up')
-    while True:
-        answer=str(input())
-        if answer =='move':
+    
+    answer=str(input())
+    if answer =='move':
             move_answ=json.dumps({
                 "response": "move",
-                "move": bestmove,
+                "move":bestmove,
                 "message": "Mouahah"})
             client.send(move_answ.encode())
-            newState = copy.deepcopy(state)
-            break
+            
+            
         
-        if answer=="give up":
+    if answer=="give up":
             giveup=json.dumps({
             "response": "giveup",
                 })
             client.send(giveup.encode())
-            break
-        else:
+           
+    else:
             input('Try again:move or give up')
 
         

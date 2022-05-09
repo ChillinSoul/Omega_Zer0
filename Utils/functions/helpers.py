@@ -60,47 +60,7 @@ def Legal(board:list,move:int,player:str,opp:str):
                     return True
     return False
 
-def Score_eval(state):
-    """
 
-    given a specific gamestate, this function will return the board score.
-    """
-    #gameinfo=state['board']
-    #print("BOARD:",gameinfo)
-    gameinfo=[[45,46,23,21],[63,56,7,37]] #exemple
-    
-    corner=['63','56','7','0','07','00']
-
-    edge_=['63','56','7','0','07','00','1','2','3','4','5','6']
-    edge2=list(range(15,56,8))+list(range(57,63))+list(range(8,49,8))+list(range(1,7))
-    add2=["{:02d}".format(x) for x in edge2]
-    edge=add2+edge_
-
-    danger=[]
-    b=gameinfo[0]
-    w=gameinfo[1]
-    print(b,l)
-    blackdic={'black':b}
-    whitedic={'white':w}
-    #si on jour noir
-    #if b==nosPions:
-     #   for ele in w :
-      #      if any(ele in corner) for ele in j:
-    b_corner = set(b)&set(corner)
-    w_corner = set(w)&set(corner)
-    b_edge=set(b)&set(edge)
-    w_edge=set(b)&set(edge)
-    if w==nosPions: #si on est blanc, il faut importer la liste nosPions
-        (len(w)-len(b))+(len(w_corner)-len(b_corner))*0.5+(len(w_edge)-len(b_edge))*0.25
-
-    if b==nosPions: #si on est noir
-        (len(b)-len(w))+(len(b_corner)-len(w_corner))*0.5+(len(b_edge)-len(w_edge))*0.25
-
-
-
-
-    #(nb_w-nb_b)+(nb_w_c-nb_b_c)*0,5+(nb_w_e-nb_b_e)*0,25+(nb_w_d-nb_b_d)*(-0,5) si on et blanc, l'inverse si on est noir
-    return 1
 
 
 if __name__ == '__main__':
