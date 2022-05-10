@@ -22,7 +22,7 @@ def Info(message,client):
         print(message,"ok")
     
     State(state)
-    bestmove=minmax.MinMax
+    bestmove=minmax.MinMax()
     print("yes",bestmove)
     
     input('Chose:move or give up')
