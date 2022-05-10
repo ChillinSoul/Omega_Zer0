@@ -1,6 +1,6 @@
 import json
 import Utils.functions.helpers as helpers
-import Utils.functions.minmax as minmax
+import Utils.minmax as minmax
 
 import copy
 

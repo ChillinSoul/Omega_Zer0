@@ -1,11 +1,10 @@
 from sys import maxsize
 
-
-from sys import maxsize
 from functions.helpers import *
 
 
-brd = []
+brd = [0,0,0,0]
+
 class node(object):
     """
     Node class:
@@ -102,3 +101,5 @@ class node(object):
             for gs,mv in pgs:
                 # creates a node at depth c_depth+1 whose board is one of the possible gamestates
                 self.chlidren.append(node(self.c_depth+1,self.m_depth,gs,self.player,self.val,mv))
+bob = node(0,2,brd,"b")
+bob.Score_eval()
