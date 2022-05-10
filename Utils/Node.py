@@ -102,4 +102,4 @@ class node(object):
                 # creates a node at depth c_depth+1 whose board is one of the possible gamestates
                 self.chlidren.append(node(self.c_depth+1,self.m_depth,gs,self.player,self.val,mv))
 bob = node(0,2,brd,"b")
-bob.Score_eval()
+print(bob.Score_eval())
