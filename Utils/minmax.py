@@ -1,5 +1,5 @@
 from sys import maxsize
-from Node import node
+from Nodes import node
 
 
 def MinMax(node:node,alpha = - maxsize,beta = maxsize):
