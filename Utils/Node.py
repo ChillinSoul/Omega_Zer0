@@ -1,5 +1,5 @@
-from sys import maxsize
 
+from sys import maxsize
 
 from sys import maxsize
 from functions.helpers import *
@@ -45,7 +45,7 @@ class node(object):
         if self.player   == "b" and not self.c_depth%2:
             color = "b"
             opp   = "w"
-        elif self.player == "b" and self.cdeph%2:
+        elif self.player == "b" and self.c_depth%2:
             color = "w"
             opp   = "b"
         elif self.player == "w" and not self.c_depth%2:
