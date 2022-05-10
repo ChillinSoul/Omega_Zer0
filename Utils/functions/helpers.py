@@ -18,10 +18,10 @@ directions = [t,r,d,l,tl,dl,dr,tr]
 def inbound(move:int, dir:int):
     
     if 0<=move+dir and move+dir <64:
-        if   move%8 == 0 and (dir !=-1 and dir !=-9 and dir !=  7):
-            return True
-        elif move%8 == 7 and (dir != 1 and dir != 9 and dir != -7):
-            return True
+        if   move%8 == 0 and (dir ==-1 or dir ==-9 or dir ==  7):
+            return False
+        elif move%8 == 7 and (dir == 1 or dir == 9 or dir == -7):
+            return False
         else: 
             return True
     return False
@@ -42,6 +42,9 @@ def Board_update(board:list,move:int,player:str,opp:str):
                 elif board[move+dir*(i)] == player and i>1:
                     for disc in temp:
                         n_board[disc] = player
+                    break
+                else:
+                    break
     return n_board
 
 
@@ -50,14 +53,20 @@ def Legal(board:list,move:int,player:str,opp:str):
     given a specific gamestate and a move, this function will return T/F depending if the move is legal.
     """
     
-    if move == 0 or "":
+    if board[move] == 0 or board[move] == "":
         for dir in directions:
+            
             i =1
             while inbound(move,dir*(i)):
-                if board[move+dir] == opp:
+                
+                if board[move+dir*(i)] == opp:
                     i+=1
-                elif board[move+dir] == player and i>1:
+                elif board[move+dir*(i)] == player and i>1:
+                    
                     return True
+                else:
+                    
+                    break
     return False
 
 

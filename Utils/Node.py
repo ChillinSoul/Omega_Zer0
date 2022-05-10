@@ -3,7 +3,7 @@ from sys import maxsize
 from functions.helpers import *
 
 
-brd = [0,0,0,0]
+
 
 class node(object):
     """
@@ -41,6 +41,7 @@ class node(object):
         """
         given a specific gamestate, this fuction uses the rules of the game to find all the possible gamestates
         """
+        
         if self.player   == "b" and not self.c_depth%2:
             color = "b"
             opp   = "w"
@@ -56,7 +57,9 @@ class node(object):
 
         pgs = []
         for i in range (64):
+            
             if Legal(self.board,i,color,opp):
+                
                 pgs.append((Board_update(self.board,i,color,opp),i))
         return pgs
     
@@ -86,7 +89,7 @@ class node(object):
             elif pos =="b": nb_b +=1
             elif pos =="w": nb_w +=1
         
-        result = (nb_w-nb_b)+(nb_w_c-nb_b_c)*0,5+(nb_w_e-nb_b_e)*0,25+(nb_w_d-nb_b_d)*(-0,5)
+        result = (nb_w-nb_b)+(nb_w_c-nb_b_c)*0.5+(nb_w_e-nb_b_e)*0.25+(nb_w_d-nb_b_d)*(-0.5)
         
         if self.player == "w":
             return result
@@ -96,10 +99,10 @@ class node(object):
         """
         this function creates sub-nodes(children) that are derived from the current gamestate using PGS_eval
         """
-        if self.c_depth != self.m_depth:
+        if self.c_depth < self.m_depth:
+            
             pgs = self.PGS_eval()
             for gs,mv in pgs:
                 # creates a node at depth c_depth+1 whose board is one of the possible gamestates
                 self.chlidren.append(node(self.c_depth+1,self.m_depth,gs,self.player,self.val,mv))
-bob = node(0,2,brd,"b")
-print(bob.Score_eval())
+
