@@ -2,8 +2,7 @@
 from sys import maxsize
 from time import time
 from Utils.functions.helpers import *
-from multiprocessing import Process, cpu_count
-import concurrent.futures
+
 
 
 
@@ -47,13 +46,9 @@ class node(object):
         given a specific gamestate, this fuction uses the rules of the game to find all the possible gamestates
         """
         
-
-
-        pgs = []
-        #for i in range (64):
-        
         if Legal(self.board,i,self.color,self.opp):
-            self.pgs.append( (Board_update(self.board,i,self.color,self.opp),i))
+            if self.c_depth != self.m_depth:
+                self.pgs.append((Board_update(self.board,i,self.color,self.opp),i))
             
             
         
@@ -102,11 +97,6 @@ class node(object):
             self.opp   = "w"
 
         if self.c_depth < self.m_depth:
-            
-            #with concurrent.futures.ThreadPoolExecutor() as exec:
-            #    exec.map(self.PGS_eval,[x for x in range(64)])
-            #with concurrent.futures.ProcessPoolExecutor() as exec:
-            #    exec.map(self.PGS_eval,[x for x in range(64)])
             for i in range(64):
                 self.PGS_eval(i)
             for gs,mv in self.pgs:
