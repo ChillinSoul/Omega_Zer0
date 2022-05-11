@@ -5,7 +5,7 @@ def MinMax(node:node,alpha = - maxsize,beta = maxsize):
     best_move = maxsize*(-1)**(node.c_depth%2+1)
     best_child = node
     
-    if (node.c_depth == node.m_depth) or (abs(node.val)==maxsize):
+    if (node.c_depth == node.m_depth):
         #print(node.Score_eval())
         return node.Score_eval(),node.move 
     
