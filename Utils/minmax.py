@@ -1,4 +1,5 @@
 from sys import maxsize
+from unicodedata import name
 from Node import node
 from time import time
 
@@ -23,21 +24,31 @@ def MinMax(node:node,alpha = - maxsize,beta = maxsize):
 
             if node.c_depth%2: beta  = min(beta, value) # node.c_depth%2 is not 0 when the minimizing player is playing
             else :             alpha = max(alpha,value) # the maximizer playe is playing
-            if beta<=alpha:    print("");break                    # the best move has been found for the current player 
+            if beta<=alpha:    break                    # the best move has been found for the current player 
     
         #print(alpha,beta)
     return [best_move,best_child.move]
 
-start = time()
-list_b=[19,27,28,35,36,37,42,45]
-list_w=[18,20,21,34,38,43,44,49,11]
-lst = [0 for _ in range(64)]
-for i in list_b:
-    lst[i] = "b"
-for j in list_w:
-    lst[j] = "w"
-bob = node(0,4,lst,"w")
-print(time()-start)
-print(len(bob.chlidren))
-print(MinMax(bob))
-print(time()-start)
+
+
+
+
+
+#ce que le server te donne
+La_liste_du_prof = [[19,27,28,35,36,37,42,45],[18,20,21,34,38,43,44,49,11]]
+
+if (len(La_liste_du_prof[0])+len(La_liste_du_prof[1])) == 4:
+    notre_couleur = "b"
+else:
+    notre_couleur = "w"
+
+La_liste_du_prof_m = [0 for _ in range(64)]
+for i in La_liste_du_prof[0]:
+    La_liste_du_prof_m[i] = "b"
+for j in La_liste_du_prof[1]:
+    La_liste_du_prof_m[j] = "w"
+
+point_de_depart_du_jeu = node(0,4,La_liste_du_prof_m,notre_couleur)
+
+#ce que tu donne au server 
+la_reponce_de_l_IA = MinMax(point_de_depart_du_jeu)[1]

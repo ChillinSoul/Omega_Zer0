@@ -1,7 +1,9 @@
+
 from sys import maxsize
-
+from time import time
 from functions.helpers import *
-
+from multiprocessing import Process, cpu_count
+import concurrent.futures
 
 
 
@@ -27,7 +29,10 @@ class node(object):
 
 
         ######################### variable init
+        self.color = "b"
+        self.opp   = "w"
         self.chlidren = []
+        self.pgs=[]
         ######################### variable init
 
 
@@ -37,31 +42,21 @@ class node(object):
     
 
 
-    def PGS_eval(self):
+    def PGS_eval(self,i):
         """
         given a specific gamestate, this fuction uses the rules of the game to find all the possible gamestates
         """
         
-        if self.player   == "b" and not self.c_depth%2:
-            color = "b"
-            opp   = "w"
-        elif self.player == "b" and self.cdeph%2:
-            color = "w"
-            opp   = "b"
-        elif self.player == "w" and not self.c_depth%2:
-            color = "w"
-            opp   = "b"
-        else:
-            color = "b"
-            opp   = "w"
+
 
         pgs = []
-        for i in range (64):
+        #for i in range (64):
+        
+        if Legal(self.board,i,self.color,self.opp):
+            self.pgs.append( (Board_update(self.board,i,self.color,self.opp),i))
             
-            if Legal(self.board,i,color,opp):
-                
-                pgs.append((Board_update(self.board,i,color,opp),i))
-        return pgs
+            
+        
     
     def Score_eval(self):
         """
@@ -93,10 +88,29 @@ class node(object):
         """
         this function creates sub-nodes(children) that are derived from the current gamestate using PGS_eval
         """
+        if self.player   == "b" and not self.c_depth%2:
+            self.color = "b"
+            self.opp   = "w"
+        elif self.player == "b" and self.cdeph%2:
+            self.color = "w"
+            self.opp   = "b"
+        elif self.player == "w" and not self.c_depth%2:
+            self.color = "w"
+            self.opp   = "b"
+        else:
+            self.color = "b"
+            self.opp   = "w"
+
         if self.c_depth < self.m_depth:
             
-            pgs = self.PGS_eval()
-            for gs,mv in pgs:
+            #with concurrent.futures.ThreadPoolExecutor() as exec:
+            #    exec.map(self.PGS_eval,[x for x in range(64)])
+            #with concurrent.futures.ProcessPoolExecutor() as exec:
+            #    exec.map(self.PGS_eval,[x for x in range(64)])
+            for i in range(64):
+                self.PGS_eval(i)
+            for gs,mv in self.pgs:
                 # creates a node at depth c_depth+1 whose board is one of the possible gamestates
                 self.chlidren.append(node(self.c_depth+1,self.m_depth,gs,self.player,self.val,mv))
+    
 
