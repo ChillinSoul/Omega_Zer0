@@ -12,9 +12,9 @@ def Info(message,client):
 
     global player
     global t
-    print(t)
     
-    print(client)
+    print('player:',player)
+    
     vie=message["lives"]
     state=message['state']
     print("Il te reste",vie,"vies")
@@ -27,7 +27,7 @@ def Info(message,client):
 
     
     answer=input()
-    print(answer)
+   
     list_b=boardinfo[0]
     list_w=boardinfo[1]
     if answer =='move' or answer== 'm':
@@ -43,8 +43,9 @@ def Info(message,client):
                     lst[j] = "w"
                 boardpawns=[boardinfo[0]+boardinfo[1]]
                 bob = node(0,4,lst,player)
-                object1,bestmove=minmax.MinMax(bob)
-                print(bestmove)
+                object,bestmove=minmax.MinMax(bob)
+                print('bestmove:',bestmove)
+                
                 move_answ=json.dumps({
                     "response": "move",
                     "move":bestmove,
@@ -84,14 +85,18 @@ def Info(message,client):
                 bob = node(0,4,lst,player)
                 object, bestmove=minmax.MinMax(bob)
                 print('bestmove:',bestmove)
+                print('object:',object)
                 move_answ=json.dumps({
                     "response": "move",
                     "move":bestmove,
                     "message": "Mouahah"})
+
                 client.send(move_answ.encode())
                 return
                 
-      
+
+
+            
         
     if answer=="give up" or answer=="g":
             giveup=json.dumps({
@@ -99,12 +104,12 @@ def Info(message,client):
                 })
             client.send(giveup.encode())
             return
+            
            
     if answer!="g" or answer!="m":
             print('Try again:')
             return
 
-        
 
 
 

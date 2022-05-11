@@ -4,6 +4,7 @@ import json
 import gameplay
 
 
+
 sub1 = json.dumps({
     "request": "subscribe",
     "port": 8888,
@@ -37,7 +38,7 @@ def mess1():
         print("i listen")
         while True:
             client, address = so.accept()
-            print("accepted")
+            
             with client:
                 mess = client.recv(2048).decode()
                 message=json.loads(mess)
@@ -46,7 +47,7 @@ def mess1():
                 if message["request"] == "ping":
                     client.send(pong.encode())
                     
-                    print("Youpi! Il est là!")
+                    
                         
                 if "state" in message:
                     gameplay.Info(message,client)
