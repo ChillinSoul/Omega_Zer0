@@ -1,7 +1,5 @@
 from sys import maxsize
-from unicodedata import name
 from Utils.Node import node
-from time import time
 
 def MinMax(node:node,alpha = - maxsize,beta = maxsize):
     best_move = maxsize*(-1)**(node.c_depth%2+1)
