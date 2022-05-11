@@ -11,13 +11,13 @@ def test_inbound():
        assert bool(helpers.inbound(7,-8))==False
        pass
 
-def test_Legal():
+#def test_Legal():
        
       
-       b=[0:63]
-       op='w' 
-       player='b'
+       #b=[0:63]
+      # op='w' 
+      # player='b'
       
-       assert bool(helpers.Legal(b,36,player,op))==False
+      # assert bool(helpers.Legal(b,36,player,op))==False
 
      

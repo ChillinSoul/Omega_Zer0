@@ -5,21 +5,28 @@ from Utils.Node import node as node
 
 import copy
 
-player =""
-c=0
+
 def Info(message,client):
+    player =""
+    t=0
+    print(t)
+    print(client)
     vie=message["lives"]
     state=message['state']
     print("Il te reste",vie,"vies")
-    if "move" in message:
-        print(message,"ok")
-
-    input('Chose:move or give up')
     
-    answer=str(input())
+    
+    boardinfo= message['state']['board']
+    print('board:',boardinfo)
+
+    print('Chose:move or give up')
+
+    
+    answer=input()
+    print(answer)
     if answer =='move' or answer== 'm':
-        while c<1:
-            boardinfo= message['state']['state'[3]]
+        while t<1:
+            
             if len(boardinfo[0]+boardinfo[1])==4:
                 player='b'
                 list_b=boardinfo[0]
@@ -32,13 +39,15 @@ def Info(message,client):
                     lst[j] = "w"
                 
                 boardpawns=[boardinfo[0]+boardinfo[1]]
-                bestmove=minmax.MinMax(bob)
+                bob = node(0,4,lst,"w")
+                object1,bestmove=minmax.MinMax(bob)
+                print(bestmove)
                 move_answ=json.dumps({
                     "response": "move",
                     "move":bestmove,
                     "message": "Mouahah"})
                 client.send(move_answ.encode())
-                c=1
+                t=1
                 break
             if len(boardinfo[0]+boardinfo[1])==5:
                 if len(boardinfo[0])==3:
@@ -58,13 +67,14 @@ def Info(message,client):
                     lst[j] = "w"
                 bob = node(0,4,lst,"w")
                 boardpawns=[boardinfo[0]+boardinfo[1]]
+                
                 bestmove=minmax.MinMax(bob)
                 move_answ=json.dumps({
                     "response": "move",
                     "move":bestmove,
                     "message": "Mouahah"})
                 client.send(move_answ.encode())
-                c=1
+                t=1
                 break
 
             boardinfo= message['state']['state'[3]]
@@ -97,8 +107,8 @@ def Info(message,client):
                 })
             client.send(giveup.encode())
            
-    else:
-            input('Try again:move or give up')
+    if answer!="g" or answer!="m":
+            print('Try again:')
 
         
             

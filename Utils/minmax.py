@@ -1,6 +1,6 @@
 from sys import maxsize
 from unicodedata import name
-from Node import node
+from Utils.Node import node
 from time import time
 
 def MinMax(node:node,alpha = - maxsize,beta = maxsize):
