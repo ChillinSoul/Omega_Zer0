@@ -1,5 +1,5 @@
 import json
-import Utils.functions.helpers as helpers
+import Utils.helpers as helpers
 import Utils.minmax as minmax
 from Utils.Node import node as node
 
