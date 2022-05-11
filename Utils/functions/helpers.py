@@ -33,13 +33,13 @@ def Board_update(board:list,move:int,player:str,opp:str):
 
     n_board = deepcopy(board)
     for dir in directions:
-            i =1
+            i =0
             temp=[]
-            while inbound(move,dir*(i)):
-                if board[move+dir*(i)] == opp:
+            while inbound(move+dir*i,dir):
+                if board[move+dir*(i+1)] == opp:
                     temp.append(move+dir*(i))
                     i+=1
-                elif board[move+dir*(i)] == player and i>1:
+                elif board[move+dir*(i+1)] == player and i>0:
                     for disc in temp:
                         n_board[disc] = player
                     break
@@ -56,20 +56,12 @@ def Legal(board:list,move:int,player:str,opp:str):
     if board[move] == 0 or board[move] == "":
         for dir in directions:
             
-            i =1
-            while inbound(move,dir*(i)):
-                if board[move+dir*(i)] == opp:
+            i =0
+            while inbound(move+dir*i,dir):
+                if board[move+dir*(i+1)] == opp:
                     i+=1
-                elif board[move+dir*(i)] == player and i>1:
+                elif board[move+dir*(i+1)] == player and i>0:
                     return True
                 else:
                     break
     return False
-
-
-
-
-if __name__ == '__main__':
-	print(inbound(4,-2))
-    
-

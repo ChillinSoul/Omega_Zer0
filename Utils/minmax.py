@@ -6,7 +6,7 @@ def MinMax(node:node,alpha = - maxsize,beta = maxsize):
     best_child = node
     
     if (node.c_depth == node.m_depth):
-        #print(node.Score_eval())
+        
         return node.Score_eval(),node.move 
     
     
@@ -27,29 +27,3 @@ def MinMax(node:node,alpha = - maxsize,beta = maxsize):
         #print(alpha,beta)
     return [best_move,best_child.move]
 
-
-
-
-
-
-#ce que le server te donne
-La_liste_du_prof = [[28,35],[27,36]]
-
-if (len(La_liste_du_prof[0])+len(La_liste_du_prof[1])) == 4:
-    notre_couleur = "b"
-else:
-    notre_couleur = "w"
-
-La_liste_du_prof_m = [0 for _ in range(64)]
-for i in La_liste_du_prof[0]:
-    La_liste_du_prof_m[i] = "b"
-for j in La_liste_du_prof[1]:
-    La_liste_du_prof_m[j] = "w"
-
-point_de_depart_du_jeu = node(0,4,La_liste_du_prof_m,notre_couleur)
-
-#ce que tu donne au server 
-print("start")
-la_reponce_de_l_IA = MinMax(point_de_depart_du_jeu)[1]
-print(la_reponce_de_l_IA)
-print("end")

@@ -64,12 +64,12 @@ class node(object):
         nb_b   =0
 
         for i,pos in enumerate(self.board):
-            if   i in e and pos == "b": nb_b +=1.25
-            elif i in e and pos == "w": nb_w +=1.25
-            elif i in d and pos == "b": nb_b +=0.5
-            elif i in d and pos == "w": nb_w +=0.5
-            elif i in c and pos == "b": nb_b +=1.5
-            elif i in c and pos == "w": nb_w +=1.5
+            if   i in e and pos == "b": nb_b +=4
+            elif i in e and pos == "w": nb_w +=4
+            elif i in d and pos == "b": nb_b +=2
+            elif i in d and pos == "w": nb_w +=2
+            elif i in c and pos == "b": nb_b +=9
+            elif i in c and pos == "w": nb_w +=9
             elif pos =="b": nb_b +=1
             elif pos =="w": nb_w +=1
         
