@@ -26,11 +26,11 @@ def Info(message,client):
     print('Chose:move or give up:')
 
     
-    answer=input()
+    #answer=input()
    
     list_b=boardinfo[0]
     list_w=boardinfo[1]
-    if answer =='move' or answer== 'm':
+    if True:
         if t<1:
             
             if len(boardinfo[0]+boardinfo[1])==4:

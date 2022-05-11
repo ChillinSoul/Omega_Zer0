@@ -58,14 +58,11 @@ def Legal(board:list,move:int,player:str,opp:str):
             
             i =1
             while inbound(move,dir*(i)):
-                
                 if board[move+dir*(i)] == opp:
                     i+=1
                 elif board[move+dir*(i)] == player and i>1:
-                    
                     return True
                 else:
-                    
                     break
     return False
 
