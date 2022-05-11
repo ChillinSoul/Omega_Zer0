@@ -72,24 +72,18 @@ class node(object):
         e=[2,3,4,5,16,23,24,31,32,39,40,47,58,59,60,61]
         nb_w   =0
         nb_b   =0
-        nb_w_c =0
-        nb_b_c =0
-        nb_w_e =0
-        nb_b_e =0
-        nb_w_d =0
-        nb_b_d =0
 
         for i,pos in enumerate(self.board):
-            if   i in e and pos == "b": nb_b_e+=1; nb_b +=1
-            elif i in e and pos == "w": nb_w_e+=1; nb_w +=1
-            elif i in d and pos == "b": nb_b_d+=1; nb_b +=1
-            elif i in d and pos == "w": nb_w_d+=1; nb_w +=1
-            elif i in c and pos == "b": nb_b_c+=1; nb_b +=1
-            elif i in c and pos == "w": nb_w_c+=1; nb_w +=1
+            if   i in e and pos == "b": nb_b +=1.25
+            elif i in e and pos == "w": nb_w +=1.25
+            elif i in d and pos == "b": nb_b +=0.5
+            elif i in d and pos == "w": nb_w +=0.5
+            elif i in c and pos == "b": nb_b +=1.5
+            elif i in c and pos == "w": nb_w +=1.5
             elif pos =="b": nb_b +=1
             elif pos =="w": nb_w +=1
         
-        result = (nb_w-nb_b)+(nb_w_c-nb_b_c)*0.5+(nb_w_e-nb_b_e)*0.25+(nb_w_d-nb_b_d)*(-0.5)
+        result = (nb_w-nb_b)
         
         if self.player == "w":
             return result
