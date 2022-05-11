@@ -35,7 +35,7 @@ def MinMax(node:node,alpha = - maxsize,beta = maxsize):
 
 
 #ce que le server te donne
-La_liste_du_prof = [[19,27,28,35,36,37,42,45],[18,20,21,34,38,43,44,49,11]]
+La_liste_du_prof = [[28,35],[27,36]]
 
 if (len(La_liste_du_prof[0])+len(La_liste_du_prof[1])) == 4:
     notre_couleur = "b"
@@ -51,4 +51,7 @@ for j in La_liste_du_prof[1]:
 point_de_depart_du_jeu = node(0,4,La_liste_du_prof_m,notre_couleur)
 
 #ce que tu donne au server 
+print("start")
 la_reponce_de_l_IA = MinMax(point_de_depart_du_jeu)[1]
+print(la_reponce_de_l_IA)
+print("end")

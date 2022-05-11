@@ -91,7 +91,7 @@ class node(object):
         if self.player   == "b" and not self.c_depth%2:
             self.color = "b"
             self.opp   = "w"
-        elif self.player == "b" and self.cdeph%2:
+        elif self.player == "b" and self.c_depth%2:
             self.color = "w"
             self.opp   = "b"
         elif self.player == "w" and not self.c_depth%2:
