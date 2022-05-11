@@ -1,7 +1,7 @@
 
 from sys import maxsize
 from time import time
-from functions.helpers import *
+from Utils.functions.helpers import *
 from multiprocessing import Process, cpu_count
 import concurrent.futures
 
