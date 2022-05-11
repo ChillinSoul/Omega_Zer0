@@ -53,3 +53,6 @@ print("start")
 la_reponce_de_l_IA = MinMax(point_de_depart_du_jeu)[1]
 print(la_reponce_de_l_IA)
 print("end")
+
+if __name__ == '__main__':
+	print('ok')

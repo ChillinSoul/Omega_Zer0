@@ -12,6 +12,7 @@ def test_inbound():
        pass
 
 def test_Legal():
+
        t = -8
        r = +1
        d = +8
@@ -32,6 +33,26 @@ def test_Legal():
        for dir in directions:
               if b[36+dir*(i)] == player and i>1:
                      assert bool(helpers.Legal(b,36,player,op))==True
+def test_Board_update():
+       t = -8
+       r = +1
+       d = +8
+       l = -1
+       tl = t+l
+       dl = d+l
+       dr = d+r
+       tr = t+r
+
+       directions = [t,r,d,l,tl,dl,dr,tr]    
+
+       b=list(range(0, 64))
+       op='w' 
+       player='b'
+       i=1
+       move=36       
+       assert helpers.Board_update(b,move,player,op)==b
+       
+
 
 
 
