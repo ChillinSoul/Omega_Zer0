@@ -31,6 +31,7 @@ def mess1():
     c=0
     addr2 = ("127.0.0.1", 8888)
     with socket.socket() as so:
+        
         so.bind(addr2)
         so.listen()
         print("i listen")
@@ -49,6 +50,8 @@ def mess1():
                         
                 if "state" in message:
                     gameplay.Info(message,client)
+                    
+                    
                 
 
 
@@ -58,6 +61,8 @@ if __name__ == "__main__":
         print (__name__)
         subs()
         mess1()
+        
+        
         
         
         
