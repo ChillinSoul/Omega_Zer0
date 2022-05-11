@@ -1,5 +1,5 @@
 from sys import maxsize
-from Utils.Node import node
+from Node import node
 
 def MinMax(node:node,alpha = - maxsize,beta = maxsize):
     best_move = maxsize*(-1)**(node.c_depth%2+1)

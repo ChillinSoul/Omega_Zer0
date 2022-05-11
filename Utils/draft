@@ -1,0 +1,94 @@
+import functions.helpers as helpers
+
+import Node
+import minmax
+from Node import node
+import gameplay
+
+
+
+def test_inbound():
+       
+       assert bool(helpers.inbound(4,-2))==True
+       pass
+       assert bool(helpers.inbound(7,1))==False
+       pass
+       assert bool(helpers.inbound(7,-8))==False
+       pass
+
+def test_Legal():
+
+       t = -8
+       r = +1
+       d = +8
+       l = -1
+       tl = t+l
+       dl = d+l
+       dr = d+r
+       tr = t+r
+
+       directions = [t,r,d,l,tl,dl,dr,tr]    
+       
+       b=list(range(0, 64))
+       op='w' 
+       player='b'
+       i=2
+       move=36   
+       assert bool(helpers.Legal(b,move,player,op))==False
+       for dir in directions:
+              if b[36+dir*(i)] == player and i>1:
+                     assert bool(helpers.Legal(b,36,player,op))==True
+def test_Board_update():
+
+       t = -8
+       r = +1
+       d = +8
+       l = -1
+       tl = t+l
+       dl = d+l
+       dr = d+r
+       tr = t+r
+
+       directions = [t,r,d,l,tl,dl,dr,tr]    
+
+       b=list(range(0, 64))
+       op='w' 
+       player='b'
+       i=1
+       move=36       
+       assert helpers.Board_update(b,move,player,op)==b
+
+
+
+
+def test_MinMax():
+    b=[[28,35,19,17,26,27,18,10,11,8,9],[36,0,2,1,4,3]]
+    list_b=b[0]
+    list_w=b[1]
+    lst = [0 for _ in range(64)]
+    for i in list_b:
+        lst[i] = "b"
+    for j in list_w:
+        lst[j] = "w"
+    bob = node(0,4,lst,"w")
+    object,bestmove=minmax.MinMax(bob)
+    assert bestmove==16
+
+def test_Score_eval():
+    
+    b=[[28,35,19,17,26,27,18,10,11,8,9],[36,0,2,1,4,3]]
+    l=list(range(0,64))
+    i=42
+    sc=node(player='w',board=l,c_depth=2,m_depth=0)
+    p=sc.MakeChild() 
+       
+    print(type(p))
+
+    def Gameplay():
+        boardinfo=[[]]
+        if len(boardinfo[0]+boardinfo[1])==4:
+
+            gameplay.Info()
+       
+
+
