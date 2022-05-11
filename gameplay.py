@@ -25,13 +25,16 @@ def Info(message,client):
     answer=input()
     print(answer)
     if answer =='move' or answer== 'm':
-        while t<1:
+        if t<1:
             
             if len(boardinfo[0]+boardinfo[1])==4:
                 player='b'
                 list_b=boardinfo[0]
+                print('b:',list_b)
                 opp='w'
                 list_w=boardinfo[1]
+                print('w:',list_w)
+                
                 lst = [0 for _ in range(64)]
                 for i in list_b:
                     lst[i] = "b"
@@ -39,7 +42,7 @@ def Info(message,client):
                     lst[j] = "w"
                 
                 boardpawns=[boardinfo[0]+boardinfo[1]]
-                bob = node(0,4,lst,"w")
+                bob = node(0,4,lst,"b")
                 object1,bestmove=minmax.MinMax(bob)
                 print(bestmove)
                 move_answ=json.dumps({
@@ -48,7 +51,7 @@ def Info(message,client):
                     "message": "Mouahah"})
                 client.send(move_answ.encode())
                 t=1
-                break
+                return t,player
             if len(boardinfo[0]+boardinfo[1])==5:
                 if len(boardinfo[0])==3:
                     player='w'
@@ -65,7 +68,7 @@ def Info(message,client):
                     lst[i] = "b"
                 for j in list_w:
                     lst[j] = "w"
-                bob = node(0,4,lst,"w")
+                bob = node(0,4,lst,player)
                 boardpawns=[boardinfo[0]+boardinfo[1]]
                 
                 bestmove=minmax.MinMax(bob)
@@ -75,31 +78,9 @@ def Info(message,client):
                     "message": "Mouahah"})
                 client.send(move_answ.encode())
                 t=1
-                break
+                return t,player
 
-            boardinfo= message['state']['state'[3]]
-
-            list_b=[19,27,28,35,36,37,42,45]
-            list_w=[18,20,21,34,38,43,44,49,11]
-            lst = [0 for _ in range(64)]
-            for i in list_b:
-                lst[i] = "b"
-            for j in list_w:
-                lst[j] = "w"
-            bob = node(0,4,lst,"w")
             
-            print(len(bob.chlidren))
-            print(minmax.MinMax(bob))
-            
-
-            boardpawns=[boardinfo[0]+boardinfo[1]]
-            bestmove=minmax.MinMax(bob)
-            move_answ=json.dumps({
-                    "response": "move",
-                    "move":bestmove,
-                    "message": "Mouahah"})
-            client.send(move_answ.encode())
-        
         
     if answer=="give up" or answer=="g":
             giveup=json.dumps({
