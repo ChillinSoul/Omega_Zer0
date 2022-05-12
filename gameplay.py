@@ -9,6 +9,8 @@ def Info(message,client):
     global player
     global t
     boardinfo= message['state']['board']
+    if len(boardinfo[0]+boardinfo[1])==64:
+        t=0
     if t<1:
        if len(boardinfo[0]+boardinfo[1])==2:
            player= "b"
