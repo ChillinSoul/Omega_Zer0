@@ -8,8 +8,8 @@ import gameplay
 sub1 = json.dumps({
     "request": "subscribe",
     "port": 8888,
-    "name": "Patate",
-    "matricules": ["64187"]
+    "name": "OmegaZero",
+    "matricules": ["18198,20286"]
     })
 
 
