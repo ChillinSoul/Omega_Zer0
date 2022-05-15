@@ -4,6 +4,13 @@
 
  Omega_Zer0 is an ai designed to play the board game Othello.
  It's using the min-max algorithm to predict the best move taking into account current and future board states.
+ 
+ The newer version Node AI uses a pakage called easyAI. It implements a version of minimax called negamax, it is really powerful as long as you can give it a good scoring method. Sopiler alert, I didn't. This game is actually pretty hard to score. I tried assinig random value at the leaf level to promote the "as many leaves as i can have" strategy. But finally landed on mixture of futur moves and interesting positions being rewarded.
+
+__start__
+
+to start the ai, open the subscription folder and run it.
+by uncomenting some(many) lines in the gamplay, you can run the Node-minimax instead of the negamax algorithm. it will probably give up, but won't make a bad move.
 
 Othello rules: 
     source: https://service.mattel.com/instruction_sheets/T8130-Eng.pdf
