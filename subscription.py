@@ -9,6 +9,13 @@ sub1 = json.dumps({
     "request": "subscribe",
     "port": 8888,
     "name": "OmegaZero",
+    "matricules": ["18192,20281"]
+    })
+
+sub2 = json.dumps({
+    "request": "subscribe",
+    "port": 8881,
+    "name": "OmegaZero1",
     "matricules": ["18198,20286"]
     })
 
@@ -17,23 +24,24 @@ pong = json.dumps({"response": "pong"})
 
 
 
-def subs():
+def subs(sub):
     b=0
-    addr = ("172.17.10.40", 3000)
+    addr = ("127.0.0.1", 3000)
     with socket.socket() as s:
         s.connect(addr)
-        s.send(sub1.encode())
+        s.send(sub.encode())
 
         s.close()
    
-
-def mess1():
+addr1 = ("127.0.0.1", 8888)
+addr2 = ("127.0.0.1", 8881)
+def mess(adr):
     print("ok")
     c=0
-    addr2 = ("0.0.0.0", 8888)
+    
     with socket.socket() as so:
         
-        so.bind(addr2)
+        so.bind(adr)
         so.listen()
         print("i listen")
         while True:
@@ -60,8 +68,8 @@ def mess1():
 
 if __name__ == "__main__":
         print (__name__)
-        subs()
-        mess1()
+        subs(sub1)
+        mess(addr1)
         
         
         
