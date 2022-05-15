@@ -1,22 +1,21 @@
 import json
+
 import Utils.helpers as helpers
 import Utils.minmax as minmax
 from Utils.Node import node as node
-t=0
-player=""
+
+
 def Info(message,client):
-    state=message['state']
-    global player
-    global t
+    state= message['state']
+    
+    
     boardinfo= message['state']['board']
-    if len(boardinfo[0]+boardinfo[1])==64:
-        t=0
-    if t<1:
-       if len(boardinfo[0]+boardinfo[1])==2:
-           player= "b"
-       else:
-           player="w"
-       t=1
+    if state['current'] == 1:
+        player= "w"
+    else:
+        player = "b"
+
+    
    
 
 
@@ -50,7 +49,7 @@ def Info(message,client):
         "move":bestmove,
         "message": "Mouahah"})
         client.send(move_answ.encode())
-    return t,player
+    
 
 
 

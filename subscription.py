@@ -19,7 +19,7 @@ pong = json.dumps({"response": "pong"})
 
 def subs():
     b=0
-    addr = ("127.0.0.1", 3000)
+    addr = ("172.17.10.40", 3000)
     with socket.socket() as s:
         s.connect(addr)
         s.send(sub1.encode())
@@ -30,7 +30,7 @@ def subs():
 def mess1():
     print("ok")
     c=0
-    addr2 = ("127.0.0.1", 8888)
+    addr2 = ("0.0.0.0", 8888)
     with socket.socket() as so:
         
         so.bind(addr2)
