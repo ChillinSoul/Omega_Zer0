@@ -2,6 +2,7 @@ import numpy as np
 from easyAI import Negamax, TwoPlayerGame,AI_Player
 from time import time
 from random import randint 
+from copy import deepcopy
 
 
 class omegaZer0AI(TwoPlayerGame):
@@ -27,12 +28,32 @@ class omegaZer0AI(TwoPlayerGame):
 
         self.chicken_diner=[
             [9, 4, 4, 4, 4, 4, 2, 9],
-            [2, -1, 1, 1, 1, 1, -1, 2],
+            [2, 1, 1, 1, 1, 1, 1, 2],
             [4, 1, 1, 1, 1, 1, 1, 4],
             [4, 1, 1, 1, 1, 1, 1, 4],
             [4, 1, 1, 1, 1, 1, 1, 4],
             [4, 1, 1, 1, 1, 1, 1, 4],
-            [2, -1, 1, 1, 1, 1, -1, 2],
+            [2, 1, 1, 1, 1, 1, 1, 2],
+            [9, 2, 4, 4, 4, 4, 4, 9]
+        ]
+        self.chicken_lunch=[
+            [9, 4, 4, 4, 4, 4, 2, 9],
+            [2, 0, 1, 1, 1, 1, 0, 2],
+            [4, 1, 2, 2, 2, 2, 1, 4],
+            [4, 1, 2, 3, 3, 2, 1, 4],
+            [4, 1, 2, 3, 3, 2, 1, 4],
+            [4, 1, 2, 2, 2, 2, 1, 4],
+            [2, 0, 1, 1, 1, 1, 0, 2],
+            [9, 2, 4, 4, 4, 4, 4, 9]
+        ]
+        self.chicken_starter=[
+            [9, 4, 4, 4, 4, 4, 2, 9],
+            [2, -1, 2, 1, 1, 1, -1, 2],
+            [4, 2, 2, 1, 1, 1, 1, 4],
+            [4, 1, 1, 5, 5, 1, 1, 4],
+            [4, 1, 1, 5, 5, 1, 1, 4],
+            [4, 2, 2, 1, 1, 2, 2, 4],
+            [2, -1, 2, 1, 1, 2, -1, 2],
             [9, 2, 4, 4, 4, 4, 4, 9]
         ]
         
@@ -108,10 +129,10 @@ class omegaZer0AI(TwoPlayerGame):
 
 
     def set_disk(self,moves:list):
-        
+        board = deepcopy( self.board)
         for (l,c) in moves:
             
-            self.board[l][c] = self.current_player
+            board[l][c] = self.current_player
         
         
 
@@ -154,16 +175,36 @@ class omegaZer0AI(TwoPlayerGame):
             return 10000
         S = 0
         game_stage = np.sum(self.board ==0)
-        if game_stage > 132:
-            return (len(self.possible_moves())-len(self.possible_moves(True)))
+        if game_stage > 48:
+            for l,ligne in enumerate(self.board):
+                for c,disk in enumerate(ligne):
+                    
+                    if disk == self.current_player: S+= self.chicken_starter[l][c]
+                    elif disk == self.opponent_index: S-= self.chicken_starter[l][c]
+            S+=(len(self.possible_moves())-len(self.possible_moves(True)))*2
+        elif game_stage > 32:
+            for l,ligne in enumerate(self.board):
+                for c,disk in enumerate(ligne):
+                    
+                    if disk == self.current_player: S+= self.chicken_lunch[l][c]
+                    elif disk == self.opponent_index: S-= self.chicken_lunch[l][c]
+            S+=(len(self.possible_moves())-len(self.possible_moves(True)))
+        elif game_stage > 16:
+            for l,ligne in enumerate(self.board):
+                for c,disk in enumerate(ligne):
+                    
+                    if disk == self.current_player: S+= self.chicken_lunch[l][c]
+                    elif disk == self.opponent_index: S-= self.chicken_lunch[l][c]
+             
         else:
             for l,ligne in enumerate(self.board):
                 for c,disk in enumerate(ligne):
-                    print(l,c)
+                    
                     if disk == self.current_player: S+= self.chicken_diner[l][c]
                     elif disk == self.opponent_index: S-= self.chicken_diner[l][c]
-            print("s: "+ str(S))
-            return S
+        print(self.board)
+        print("s: "+ str(S))
+        return S
 
 if __name__ =="__main__":
     state = {'players': ['OmegaZero', 'OmegaZero1'], 'current': 0, 'board': [[28, 35], [27, 36]]}
