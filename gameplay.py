@@ -1,4 +1,5 @@
 import json
+from typing import final
 
 #import Utils.helpers as helpers
 #import Utils.minmax as minmax
@@ -32,32 +33,33 @@ def Info(message,client):
         # AI = node(0,4,lst,player)
         # object,bestmove=minmax.MinMax(AI)
 
-    bestmove = None
-    while bestmove == None:
-        try:
-            AI = omegaZer0AI([AI_Player(Negamax(6)),AI_Player(Negamax(6))],state)
-            print(1)
+    
+    try:
+        AI = omegaZer0AI([AI_Player(Negamax(5)),AI_Player(Negamax(5))],state)
+        print(1)
+        bestmove=AI.get_move()
+        bestmove = bestmove[0]*8+bestmove[1]
+        print(bestmove)
+        move_answ=json.dumps({
+        "response": "move",
+        "move":bestmove,
+        "message": "Mouahah"})
+        client.send(move_answ.encode())
+    except:
+        AI = omegaZer0AI([AI_Player(Negamax(1)),AI_Player(Negamax(1))],state)
+        print(2)
 
-            bestmove=AI.get_move()
-            bestmove = bestmove[0]*8+bestmove[1]
-            print(bestmove)
-            move_answ=json.dumps({
-            "response": "move",
-            "move":bestmove,
-            "message": "Mouahah"})
-            client.send(move_answ.encode())
-        except:
-            AI = omegaZer0AI([AI_Player(Negamax(1)),AI_Player(Negamax(1))],state)
-            print(1)
+        bestmove=AI.get_move()
+        bestmove = bestmove[0]*8+bestmove[1]
+        print(bestmove)
+        move_answ=json.dumps({
+        "response": "move",
+        "move":bestmove,
+        "message": "Mouahah"})
+        client.send(move_answ.encode())
+    
 
-            bestmove=AI.get_move()
-            bestmove = bestmove[0]*8+bestmove[1]
-            print(bestmove)
-            move_answ=json.dumps({
-            "response": "move",
-            "move":bestmove,
-            "message": "Mouahah"})
-            client.send(move_answ.encode())
+            
 
 
     

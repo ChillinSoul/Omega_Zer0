@@ -79,8 +79,6 @@ class omegaZer0AI(TwoPlayerGame):
                 
                 while 0<=l<8 and 0<=c<8:
 
-                    
-
                     if self.board[l][c] == self.opponent_index:
                     
                         i+=1
@@ -115,27 +113,27 @@ class omegaZer0AI(TwoPlayerGame):
         
         for dr in self.dirs:
             i = 0
-            l=move[0]+(i)*dr[0]
-            c=move[1]+(i)*dr[1]
+            l=move[0]+(i+1)*dr[0]
+            c=move[1]+(i+1)*dr[1]
             
             while 0<=l<8 and 0<=c<8:
                 
-                l=move[0]+(i)*dr[0]
-                c=move[1]+(i)*dr[1]
-                if self.board[l][c] == self.opponent_index:i+=1; to_flip.append((l,c))
+                
+                if self.board[l][c] == self.opponent_index:
+                    to_flip.append((l,c))
+                    i+=1
+                    l=move[0]+(i+1)*dr[0]
+                    c=move[1]+(i+1)*dr[1]
                 elif self.board[l][c] ==0:break
                 else :to_flip.append((l,c));self.set_disk(to_flip);break
         
 
 
     def set_disk(self,moves:list):
-        board = deepcopy( self.board)
+        
         for (l,c) in moves:
             
-            board[l][c] = self.current_player
-        
-        
-
+            self.board[l][c] = self.current_player
         
     def is_over(self):
         
@@ -202,8 +200,7 @@ class omegaZer0AI(TwoPlayerGame):
                     
                     if disk == self.current_player: S+= self.chicken_diner[l][c]
                     elif disk == self.opponent_index: S-= self.chicken_diner[l][c]
-        print(self.board)
-        print("s: "+ str(S))
+        print(S)
         return S
 
 if __name__ =="__main__":
