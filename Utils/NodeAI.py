@@ -44,6 +44,10 @@ chicken_starter=[
 
 ###----------custom boards
 def extract_disks(board):
+    """
+    tansforms the board into two different lists of player positions
+    board->[[player 1][player 2]]
+    """
     result = ([],[])
     for l,line in enumerate( board ) :
         for c,disk in enumerate ( line ):
@@ -51,14 +55,23 @@ def extract_disks(board):
     return result
 
 def get_futures_dif(game):
+    """
+    calculates the move potential of for current board
+    possible_moves for the current player - possible_moves for the opponent
+    """
     return len(game.possible_moves())-len(game.possible_moves(True))
     
 def give_point(board:list,pos:list,points:int):
-
+    """
+    attributes the chosen value to the chosen positions on the board
+    """
     for p in pos:board[p[0]][p[1]]+=points
 
 def give_points(board:list,points:list):
-    
+    """
+    attributes the chosen values to all the diferent sections of the board
+    """
+
     give_point(board,center_pos,points[0])
     
     give_point(board,buffer_pos[0]+buffer_pos[1]+buffer_pos[2]+buffer_pos[3],points[1])
@@ -72,6 +85,9 @@ def give_points(board:list,points:list):
 ###----------custom boards    
 
 def make_scoreboard(game:TwoPlayerGame):
+    """
+    creates a scoreboard to reference the positions agaist, used to calculate the score
+    """
     score_board = np.ones((8,8),dtype=int)
     
     game_stage = 64-np.sum(game.board ==0)
@@ -93,6 +109,9 @@ def make_scoreboard(game:TwoPlayerGame):
     return score_board
 
 def get_score(game):
+    """
+    calculate the current board score
+    """
     if game.win():
             return 10000
     S = 0
@@ -109,7 +128,7 @@ def get_score(game):
 
 class omegaZer0AI(TwoPlayerGame):
     """
-    
+    implementation of TwoPlayerGame of Othello
     """
     def __init__(self,Players:list,state:dict)-> None: 
         """
@@ -264,20 +283,4 @@ class omegaZer0AI(TwoPlayerGame):
         return get_score(self)
         
 
-if __name__ =="__main__":
-    #don't have much time for fancy unit test when you decide to start over the night before
-    state = {'players': ['OmegaZero', 'OmegaZero1'], 'current': 0, 'board': [[28, 35], [27, 36]]}
-    AI = omegaZer0AI([AI_Player(Negamax(4)),AI_Player(Negamax(4))],state)
-    bestmove=AI.get_move()
-    print(bestmove)
-    AI.make_move(bestmove)
-    AI.scoring()
-    print(AI.board)
-    print("len: {}".format(len([8, 17, 35, 10, 9, 11, 7, 63, 27, 18, 40, 32, 16, 24, 43, 41, 57, 23, 15, 61, 62, 55, 28, 53, 31, 47, 19, 37, 46, 54, 39])))
-    print(extract_disks(AI.board))
-    print(get_futures_dif(AI))
-    
-    score_board = [[1 for _ in range(8)] for _ in range(8)]
 
-    give_points(score_board,[1,2,3,4,5])
-    print(AI.possible_moves(True))
