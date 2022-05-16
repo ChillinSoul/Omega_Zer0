@@ -1,6 +1,6 @@
-import functions.helpers as helpers
+import helpers 
 
-import Node
+
 import minmax
 from Node import node
 import gameplay

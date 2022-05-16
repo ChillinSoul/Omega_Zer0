@@ -54,7 +54,7 @@ def Info(message,client):
         bestmove=AI.get_move()
         bestmove = bestmove[0]*8+bestmove[1]
     except IndexError: #here to catch ne no moves left bug
-        pass
+        print("indexing")
 
         #hailmary
     if bestmove == None:
@@ -63,9 +63,6 @@ def Info(message,client):
                 AI = omegaZer0AI([AI_Player(Negamax(1)),AI_Player(Negamax(1))],state)
                 bestmove=AI.get_move()
                 bestmove = bestmove[0]*8+bestmove[1]
-
-        
-        
         except:
             giveup=json.dumps({
             "response": "giveup",

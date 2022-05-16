@@ -70,8 +70,8 @@ def mess(adr):
 
 if __name__ == "__main__":
         print (__name__)
-        subs(sub1)
-        mess(addr1)
+        subs(sub2)
+        mess(addr2)
         
         
         
