@@ -72,10 +72,9 @@ class omegaZer0AI(TwoPlayerGame):
                 for j in range(8)
                 if (self.board[i][j]==0)
                 and(self.legal([i,j],b))]
-        if len(result)==0:
-            self.done_flag = True
-        else:
-            return result
+        
+        
+        return result
 
 
     def legal(self,move:tuple,b:bool):
