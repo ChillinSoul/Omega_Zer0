@@ -1,9 +1,111 @@
+
 import numpy as np
 from easyAI import Negamax, TwoPlayerGame,AI_Player
-from time import time
-from random import randint 
-from copy import deepcopy
 
+#custom boards 
+center_pos = [(3,3),(3,4),(4,3),(4,4)]
+buffer_pos = [[(0,1),(1,0),(1,1)],[(0,6),(1,6),(1,7)],[(6,0),(6,1),(7,1)],[(6,6),(6,7),(7,6)]]
+corner_pos = [(0,0),(0,7),(7,0),(7,7)]
+edge_pos   = [[(0,x)for x in range(1,7)],[(7,x)for x in range(1,7)],[(x,0)for x in range(1,7)],[(x,7)for x in range(1,7)]]
+diag_pos   = [[(i,i)for i in range(2,6)],[(i,7-i)for i in range(2,6)]]
+
+#premade boards
+chicken_diner=[
+            [20, 2, 4, 4, 4, 4, 2, 20],
+            [2, 1, 1, 1, 1, 1, 1, 2],
+            [4, 1, 1, 1, 1, 1, 1, 4],
+            [4, 1, 1, 1, 1, 1, 1, 4],
+            [4, 1, 1, 1, 1, 1, 1, 4],
+            [4, 1, 1, 1, 1, 1, 1, 4],
+            [2, 1, 1, 1, 1, 1, 1, 2],
+            [9, 2, 4, 4, 4, 4, 4, 9]
+        ]
+chicken_lunch=[
+            [20, 4, 4, 4, 4, 4, 2, 20],
+            [2, 0, 1, 1, 1, 1, 0, 2],
+            [4, 1, 2, 2, 2, 2, 1, 4],
+            [4, 1, 2, 3, 3, 2, 1, 4],
+            [4, 1, 2, 3, 3, 2, 1, 4],
+            [4, 1, 2, 2, 2, 2, 1, 4],
+            [2, 0, 1, 1, 1, 1, 0, 2],
+            [20, 2, 4, 4, 4, 4, 4, 20]
+        ]
+chicken_starter=[
+            [9, 4, 4, 4, 4, 4, 2, 9],
+            [2, -1, 2, 1, 1, 1, -1, 2],
+            [4, 2, 2, 1, 1, 1, 1, 4],
+            [4, 1, 1, 5, 5, 1, 1, 4],
+            [4, 1, 1, 5, 5, 1, 1, 4],
+            [4, 2, 2, 1, 1, 2, 2, 4],
+            [2, -1, 2, 1, 1, 2, -1, 2],
+            [9, 2, 4, 4, 4, 4, 4, 9]
+        ]
+
+
+###----------custom boards
+def extract_disks(board):
+    result = ([],[])
+    for l,line in enumerate( board ) :
+        for c,disk in enumerate ( line ):
+            if disk :result[disk-1].append((l,c)) 
+    return result
+
+def get_futures_dif(game):
+    return len(game.possible_moves())-len(game.possible_moves(True))
+    
+def give_point(board:list,pos:list,points:int):
+
+    for p in pos:board[p[0]][p[1]]+=points
+
+def give_points(board:list,points:list):
+    
+    give_point(board,center_pos,points[0])
+    
+    give_point(board,buffer_pos[0]+buffer_pos[1]+buffer_pos[2]+buffer_pos[3],points[1])
+    
+    give_point(board,edge_pos[0] + edge_pos[1] + edge_pos[2] + edge_pos[3]  ,points[2])
+    
+    give_point(board,diag_pos[0] + diag_pos[1]  ,points[3])
+    
+    give_point(board,corner_pos,points[4])
+    
+###----------custom boards    
+
+def make_scoreboard(game:TwoPlayerGame):
+    score_board = np.ones((8,8),dtype=int)
+    
+    game_stage = 64-np.sum(game.board ==0)
+    
+    if game_stage <10:           #3,-5,3,2,9
+        #give_points(score_board,[1,-5,3,2,9])
+        score_board = chicken_starter
+        
+        bonus = 1
+    elif game_stage <20:
+        #give_points(score_board,[1,-5,3,2,20])
+        score_board = chicken_lunch
+        bonus = 1.2
+    else:
+        give_points(score_board,[1,1,1,1,20])
+        #score_board = chicken_diner
+        bonus = 222
+    
+    return score_board
+
+def get_score(game):
+    if game.win():
+            return 10000
+    S = 0
+    score_board = make_scoreboard(game)
+    for l,ligne in enumerate(game.board):
+        for c,disk in enumerate(ligne):
+            
+            if disk == game.current_player: S+= score_board[l][c]
+            elif disk == game.opponent_index: S-= score_board[l][c]
+        
+    
+            
+    return S+(get_futures_dif(game))
 
 class omegaZer0AI(TwoPlayerGame):
     """
@@ -29,37 +131,7 @@ class omegaZer0AI(TwoPlayerGame):
         self.pass_flag = False
 
 
-        #weird experimental strategy 
-        self.chicken_diner=[
-            [9, 4, 4, 4, 4, 4, 2, 9],
-            [2, 1, 1, 1, 1, 1, 1, 2],
-            [4, 1, 1, 1, 1, 1, 1, 4],
-            [4, 1, 1, 1, 1, 1, 1, 4],
-            [4, 1, 1, 1, 1, 1, 1, 4],
-            [4, 1, 1, 1, 1, 1, 1, 4],
-            [2, 1, 1, 1, 1, 1, 1, 2],
-            [9, 2, 4, 4, 4, 4, 4, 9]
-        ]
-        self.chicken_lunch=[
-            [9, 4, 4, 4, 4, 4, 2, 9],
-            [2, 0, 1, 1, 1, 1, 0, 2],
-            [4, 1, 2, 2, 2, 2, 1, 4],
-            [4, 1, 2, 3, 3, 2, 1, 4],
-            [4, 1, 2, 3, 3, 2, 1, 4],
-            [4, 1, 2, 2, 2, 2, 1, 4],
-            [2, 0, 1, 1, 1, 1, 0, 2],
-            [9, 2, 4, 4, 4, 4, 4, 9]
-        ]
-        self.chicken_starter=[
-            [9, 4, 4, 4, 4, 4, 2, 9],
-            [2, -1, 2, 1, 1, 1, -1, 2],
-            [4, 2, 2, 1, 1, 1, 1, 4],
-            [4, 1, 1, 5, 5, 1, 1, 4],
-            [4, 1, 1, 5, 5, 1, 1, 4],
-            [4, 2, 2, 1, 1, 2, 2, 4],
-            [2, -1, 2, 1, 1, 2, -1, 2],
-            [9, 2, 4, 4, 4, 4, 4, 9]
-        ]
+        
         
     
 
@@ -75,7 +147,6 @@ class omegaZer0AI(TwoPlayerGame):
         
         
         return result
-
 
     def legal(self,move:tuple,b:bool):
         """
@@ -95,9 +166,7 @@ class omegaZer0AI(TwoPlayerGame):
                         i+=1
                         l=move[0]+(i+1)*dr[0]
                         c=move[1]+(i+1)*dr[1]
-                    elif self.board[l][c] == self.current_player and i>0:
-                        
-                        return True
+                    elif self.board[l][c] == self.current_player and i>0: return True
                     else: 
                         break
                 
@@ -116,7 +185,6 @@ class omegaZer0AI(TwoPlayerGame):
             
 
         return False
-
 
     def make_move(self, move:list):
         """
@@ -139,8 +207,6 @@ class omegaZer0AI(TwoPlayerGame):
                     c=move[1]+(i+1)*dr[1]
                 elif self.board[l][c] ==0:break
                 else :to_flip.append((l,c));self.set_disk(to_flip);break
-        
-
 
     def set_disk(self,moves:list):
         """
@@ -167,8 +233,7 @@ class omegaZer0AI(TwoPlayerGame):
             if c in player: game_board[c//8,c%8] = 1
             else: game_board[c//8,c%8] = 2
         return game_board
-            
-        
+                   
     def count(self):
         """
         conts the difference of disk in each player's possession 
@@ -177,7 +242,7 @@ class omegaZer0AI(TwoPlayerGame):
         for line in self.board:
                 for  piece in line:
                     if piece == self.current_player: cnt +=1
-                    else : cnt -=1
+                    elif piece == self.opponent_index : cnt -=1
         return cnt
 
     def win(self):
@@ -196,42 +261,23 @@ class omegaZer0AI(TwoPlayerGame):
         """
         changes the scoring based on the nuber of turns, the position on the board and futur moves avialable 
         """
-        if self.win():
-            return 10000
-        S = 0
-        game_stage = np.sum(self.board ==0)
-        if game_stage > 48:
-            for l,ligne in enumerate(self.board):
-                for c,disk in enumerate(ligne):
-                    
-                    if disk == self.current_player: S+= self.chicken_starter[l][c]
-                    elif disk == self.opponent_index: S-= self.chicken_starter[l][c]
-            S+=(len(self.possible_moves())-len(self.possible_moves(True)))*2
-        elif game_stage > 32:
-            for l,ligne in enumerate(self.board):
-                for c,disk in enumerate(ligne):
-                    
-                    if disk == self.current_player: S+= self.chicken_lunch[l][c]
-                    elif disk == self.opponent_index: S-= self.chicken_lunch[l][c]
-            S+=(len(self.possible_moves())-len(self.possible_moves(True)))
-        elif game_stage > 160:
-            for l,ligne in enumerate(self.board):
-                for c,disk in enumerate(ligne):
-                    
-                    if disk == self.current_player: S+= self.chicken_lunch[l][c]
-                    elif disk == self.opponent_index: S-= self.chicken_lunch[l][c]
-             
-        else:
-            for l,ligne in enumerate(self.board):
-                for c,disk in enumerate(ligne):
-                    
-                    if disk == self.current_player: S+= self.chicken_diner[l][c]
-                    elif disk == self.opponent_index: S-= self.chicken_diner[l][c]
-        #print("potential score: {}".format(S))
-        return S
+        return get_score(self)
+        
 
 if __name__ =="__main__":
     #don't have much time for fancy unit test when you decide to start over the night before
     state = {'players': ['OmegaZero', 'OmegaZero1'], 'current': 0, 'board': [[28, 35], [27, 36]]}
     AI = omegaZer0AI([AI_Player(Negamax(4)),AI_Player(Negamax(4))],state)
     bestmove=AI.get_move()
+    print(bestmove)
+    AI.make_move(bestmove)
+    AI.scoring()
+    print(AI.board)
+    print("len: {}".format(len([8, 17, 35, 10, 9, 11, 7, 63, 27, 18, 40, 32, 16, 24, 43, 41, 57, 23, 15, 61, 62, 55, 28, 53, 31, 47, 19, 37, 46, 54, 39])))
+    print(extract_disks(AI.board))
+    print(get_futures_dif(AI))
+    
+    score_board = [[1 for _ in range(8)] for _ in range(8)]
+
+    give_points(score_board,[1,2,3,4,5])
+    print(AI.possible_moves(True))
