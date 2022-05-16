@@ -9,7 +9,7 @@ sub1 = json.dumps({
     "request": "subscribe",
     "port": 8888,
     "name": "OmegaZero",
-    "matricules": ["18192,20281"]
+    "matricules": ["18198,20286"]
     })
 
 sub2 = json.dumps({
@@ -19,6 +19,8 @@ sub2 = json.dumps({
     "matricules": ["18198,20286"]
     })
 
+addr1 = ("127.0.0.1", 8888)
+addr2 = ("127.0.0.1", 8881)
 
 pong = json.dumps({"response": "pong"})
 
