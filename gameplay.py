@@ -41,34 +41,44 @@ def Info(message,client):
     #     client.send(move_answ.encode())
 
 
-
+    bestmove=None
     #------------------------------------negamax-NodeAI
     try:
-        AI = omegaZer0AI([AI_Player(Negamax(5)),AI_Player(Negamax(5))],state)
+        AI = omegaZer0AI([AI_Player(Negamax(4)),AI_Player(Negamax(4))],state)
         print(1)
         bestmove=AI.get_move()
         bestmove = bestmove[0]*8+bestmove[1]
         print(bestmove)
-        move_answ=json.dumps({
-        "response": "move",
-        "move":bestmove,
-        "message": "Mouahah"})
-        client.send(move_answ.encode())
-    except IndexError: #here to catch ne no moves left bug
         
-
-        #hailmary
-        AI = omegaZer0AI([AI_Player(Negamax(1)),AI_Player(Negamax(1))],state)
-        print(2)
 
         bestmove=AI.get_move()
         bestmove = bestmove[0]*8+bestmove[1]
-        print(bestmove)
-        move_answ=json.dumps({
-        "response": "move",
-        "move":bestmove,
-        "message": "Mouahah"})
-        client.send(move_answ.encode())
+    except IndexError: #here to catch ne no moves left bug
+        pass
+
+        #hailmary
+    if bestmove == None:
+        try:
+
+                AI = omegaZer0AI([AI_Player(Negamax(1)),AI_Player(Negamax(1))],state)
+                bestmove=AI.get_move()
+                bestmove = bestmove[0]*8+bestmove[1]
+
+        
+        
+        except:
+            giveup=json.dumps({
+            "response": "giveup",
+            })
+            client.send(giveup.encode())
+            pass   
+    
+    print(bestmove)
+    move_answ=json.dumps({
+    "response": "move",
+    "move":bestmove,
+    "message": "Mouahah"})
+    client.send(move_answ.encode())
     
 
             

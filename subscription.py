@@ -9,7 +9,7 @@ sub1 = json.dumps({
     "request": "subscribe",
     "port": 8888,
     "name": "OmegaZero",
-    "matricules": ["18198,20286"]
+    "matricules": ["18192,20281"]
     })
 
 sub2 = json.dumps({

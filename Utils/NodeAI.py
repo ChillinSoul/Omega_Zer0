@@ -67,11 +67,15 @@ class omegaZer0AI(TwoPlayerGame):
         """
         returns a list of all possible moves
         """
-        return [[i,j]
+        result =[[i,j]
                 for i in range(8)
                 for j in range(8)
                 if (self.board[i][j]==0)
                 and(self.legal([i,j],b))]
+        if len(result)==0:
+            self.done_flag = True
+        else:
+            return result
 
 
     def legal(self,move:tuple,b:bool):
@@ -141,7 +145,7 @@ class omegaZer0AI(TwoPlayerGame):
 
     def set_disk(self,moves:list):
         """
-        creates a new board from a bord and a move
+        creates a new board from a board and a move
         """
         for (l,c) in moves:
             
@@ -211,7 +215,7 @@ class omegaZer0AI(TwoPlayerGame):
                     if disk == self.current_player: S+= self.chicken_lunch[l][c]
                     elif disk == self.opponent_index: S-= self.chicken_lunch[l][c]
             S+=(len(self.possible_moves())-len(self.possible_moves(True)))
-        elif game_stage > 16:
+        elif game_stage > 160:
             for l,ligne in enumerate(self.board):
                 for c,disk in enumerate(ligne):
                     
@@ -224,7 +228,7 @@ class omegaZer0AI(TwoPlayerGame):
                     
                     if disk == self.current_player: S+= self.chicken_diner[l][c]
                     elif disk == self.opponent_index: S-= self.chicken_diner[l][c]
-        print("potential score: {}".format(S))
+        #print("potential score: {}".format(S))
         return S
 
 if __name__ =="__main__":
